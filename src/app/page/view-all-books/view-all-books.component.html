@@ -18,15 +18,15 @@
               <td>{{book.author}}</td>
               <td>{{book.category}}</td>
               <td>{{book.qty}}</td>
-              <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setSelectedBook(book)"><i class="bi bi-trash3"></i></button></td>
-              <td><Button class="btn btn-primary" ><i class="bi bi-pencil-square"></i></Button></td>
+              <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="setSelectedBook(book)"><i class="bi bi-trash3"></i></button></td>
+              <td><Button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-whatever="@getbootstrap" (click)="setSelectedBook(book)" ><i class="bi bi-pencil-square"></i></Button></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-     <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     <!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -43,3 +43,68 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Update -->
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="id" class="col-form-label">ID:</label>
+            <input type="text" class="form-control" id="id" value={{selectedBook?.id}} disabled>
+          </div>
+          <div class="mb-3">
+            <label for="isbn" class="col-form-label">ISBN:</label>
+            <input type="text" class="form-control" id="isbn" value={{selectedBook?.isbn}} disabled>
+          </div>
+          <div class="mb-3" *ngIf="selectedBook">
+            <label for="title" class="col-form-label">Title:</label>
+            <input type="text" [(ngModel)]="selectedBook.title" [ngModelOptions]="{standalone: true}" class="form-control" id="newTitle">
+          </div>
+          <div class="mb-3" *ngIf="selectedBook">
+            <label for="author" class="col-form-label">Author:</label>
+            <input type="text" [(ngModel)]="selectedBook.author" [ngModelOptions]="{standalone: true}" class="form-control" id="newAuthor" >
+          </div>
+          <div class="mb-3" *ngIf="selectedBook">
+            <label for="category" class="col-form-label">Category:</label>
+            <input type="text" [(ngModel)]="selectedBook.category" [ngModelOptions]="{standalone: true}" class="form-control" id="newCategory" >
+          </div>
+          <div class="mb-3" *ngIf="selectedBook">
+            <label for="qty" class="col-form-label">Qty:</label>
+            <input type="number" [(ngModel)]="selectedBook.qty" [ngModelOptions]="{standalone: true}" class="form-control" id="newQty">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateQuestionModal" >Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+     <!-- Modal update question -->
+     <div class="modal fade" id="updateQuestionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Are you sure ?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           Do you want to update this ? 
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="updateBook()" >Confirm Update</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+

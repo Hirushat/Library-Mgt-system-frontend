@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 
 
 
 @Component({
   selector: 'app-view-all-books',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, CommonModule],
+  imports: [HttpClientModule,FormsModule, CommonModule],
   templateUrl: './view-all-books.component.html',
   styleUrl: './view-all-books.component.css'
 })
@@ -38,6 +39,14 @@ export class ViewAllBooksComponent implements OnInit {
       this.loadBooks();
       this.selectedBook = null;
     });
+  }
+
+  updateBook(){
+    this.http.post('http://localhost:8080/book/add',this.selectedBook).subscribe(data=>{
+      console.log("saved!");
+      this.loadBooks();
+  
+    })
   }
 
   setSelectedBook(book: any){
