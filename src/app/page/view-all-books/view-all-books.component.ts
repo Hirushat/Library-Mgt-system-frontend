@@ -39,8 +39,9 @@ export class ViewAllBooksComponent implements OnInit {
       console.log(Response);
       this.loadBooks();
       Swal.fire({
-        title: "Good job!",
-        text: "Deleted Successfully"
+        title: "Deleted!",
+        text: `"${this.selectedBook.title}" book is Deleted`,
+        icon: "success"
       });
       this.selectedBook = null;
     });
@@ -50,6 +51,11 @@ export class ViewAllBooksComponent implements OnInit {
     this.http.post('http://localhost:8080/book/add',this.selectedBook).subscribe(data=>{
       console.log("saved!");
       this.loadBooks();
+      Swal.fire({
+        title: "Updated!",
+        text: "Book Updated Successfully",
+        icon: "success"
+      });
     })
   }
 
